@@ -1,0 +1,120 @@
+---
+permalink: deploy/nonha_deployment.html 
+sidebar: sidebar 
+keywords:  
+summary: È possibile configurare un nodo singolo non ha in configurazioni piccole, medie o grandi. 
+---
+= Come implementare la configurazione a nodo singolo non ha
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile configurare un nodo singolo non ha in configurazioni piccole, medie o grandi.
+
+* La configurazione Small non ha contiene 8 CPU e 16 GB di RAM.
+* La configurazione non ha media contiene 12 CPU e 24 GB di RAM.
+* La configurazione non ha di grandi dimensioni contiene 16 CPU e 32 GB di RAM.
+
+
+Assicurarsi che il percorso di rete sia presente.
+Esempio: C1_sti67-vsim-ucs154k_1679633108::> route di rete create -vserver <SVM> -destination 0,0.0.0/0 -gateway <gateway_ip>
+
+*A proposito di questa attività*
+
+Questa attività offre istruzioni su come installare un nodo singolo non ha in configurazioni piccole, medie o elevate.
+
+*Fasi*
+
+. Accedere al server vSphere.
+. Accedere al pool di risorse o all'host in cui si desidera distribuire l'OVA.
+. Fare clic con il pulsante destro del mouse sul data center desiderato e selezionare *Deploy OVF template...* (implementa modello OVF...).
+. È possibile immettere l'URL del file _.ova_ o navigare alla cartella in cui è stato salvato il file _.ova_, quindi selezionare *Avanti*.
+. Selezionare un nome e una cartella per la macchina virtuale e selezionare *Avanti*.
+. Selezionare l'host e selezionare *Avanti*
+. Rivedere il riepilogo del modello e selezionare *Avanti*.
+. Leggere e accettare il contratto di licenza e selezionare *Avanti*.
+. Nella finestra *Configurazione*, selezionare *nodo singolo non ha(piccolo)*, *nodo singolo non ha(Medio)* o *nodo singolo non ha(grande)*.
+. Nella finestra Configurazione scegliere la dimensione richiesta della configurazione nodo singolo non ha e selezionare *Avanti*.
+. Selezionare il datastore in cui è necessario implementare l'OVA e selezionare *Avanti*.
+. Selezionare la rete di origine e di destinazione e selezionare *Avanti*.
+. Selezionare la finestra *Personalizza modello* > *Configurazione di sistema*. Inserire i seguenti dati:
++
+.. Nome utente e password del provider VASA: Questo nome utente e password vengono utilizzati per registrare il provider VASA in vCenter.
+.. La casella di controllo *Abilita ASUP* è selezionata per impostazione predefinita.
++
+L'ASUP può essere abilitato o disabilitato solo durante l'implementazione.
+
+.. Nome utente amministratore e password amministratore: Password utilizzata per accedere all'interfaccia utente *Gestione strumenti ONTAP*.
+.. Immettere le informazioni sul server NTP nel campo *Server NTP*.
+.. Password utente di manutenzione: Consente di accedere a 'Opzioni console manutenzione'.
+
+
+. Nella finestra *Customize template* > *VASA Provider Certificates*, immettere i seguenti dettagli:
++
+.. Selezionare la casella di controllo Abilita certificato CA personalizzato. Questo è necessario per l'abilitazione multi-VC. In caso di ambiente non multi-VC, ignorare la casella di controllo. Non è necessario menzionare i certificati e il nome di dominio, è necessario solo fornire i dettagli IP virtuali.
+.. Copiare e incollare i certificati root e intermedi.
+.. Copiare e incollare i certificati Leaf e la chiave privata.
+.. Immettere il nome di dominio con il quale è stato generato il certificato.
+.. Immettere i dettagli dell'IP del bilanciamento del carico.
+
+
+. Nella finestra *Personalizza modello* > *Configurazione distribuzione*, immettere i seguenti dettagli:
++
+.. Immettere un indirizzo IP gratuito in Virtual IP per il piano di controllo K8s. Questo è necessario per K8s API Server.
+.. Seleziona la casella di controllo a fronte dell'opzione *Enable SVM scoping* (attiva SVM scoping) quando intendi utilizzare la SVM diretta. Per usare ONTAP cluster, non selezionare la casella di controllo.
++
+
+NOTE: Quando l'ambito SVM è abilitato, dovresti aver già abilitato il supporto SVM con l'IP di gestione.
+
+.. Immettere i dettagli mostrati nell'immagine seguente:
++
+image::../media/ng_deployment_configuration.png[configurazione per l'implementazione]
+
+.. Inserisci il cluster ONTAP o l'IP di gestione SVM in *LIF di gestione ONTAP/SVM*.
+.. Inserisci il cluster ONTAP o la SVM *ONTAP/SVM Data LIF*.
+.. Per Storage VM, puoi scegliere di fornire i dettagli relativi alle Storage VM predefiniti di ONTAP oppure creare una nuova Storage VM. Non immettere il valore nel campo *Storage VM* quando è selezionata l'opzione Enable SVM scoping (attiva ambito SVM), poiché questo campo viene ignorato.
+.. Inserisci il nome utente di ONTAP/SVM.
+.. Inserisci la password ONTAP/SVM.
+.. L'opzione attiva migrazione è disattivata per impostazione predefinita. Non modificare questa scelta.
+.. La macchina virtuale primaria è abilitata per impostazione predefinita. Non modificare questa scelta.
+
+
+. Nella finestra *Personalizza modello* > *Configurazione nodo* immettere le proprietà di rete dell'OVA.
++
+
+NOTE: Le informazioni qui fornite verranno convalidate per i modelli corretti durante il processo di installazione. In caso di discrepanza, viene visualizzato un messaggio di errore sulla console Web e viene richiesto di correggere eventuali informazioni errate fornite.
+
++
+.. Immettere il nome host nel campo host name.
+.. Immettere l'indirizzo IP mappato al nome host.
+.. Lunghezza prefisso (solo per IPv6)
+.. Netmask (solo per IPv4)
+.. Gateway
+.. Primary DNS (DNS primario)
+.. DNS secondario
+.. Cerca domini
+
+
+. Rivedere i dettagli nella finestra *Pronto per il completamento*, selezionare *FINE*.
++
+Quando l'attività viene creata, l'avanzamento viene visualizzato nella barra delle applicazioni di vSphere.
+
+. Accendere la macchina virtuale dopo il completamento dell'attività.
++
+L'installazione viene avviata. È possibile tenere traccia dell'avanzamento dell'installazione nella console Web della VM.
+Come parte dell'installazione, le configurazioni dei nodi vengono convalidate. Gli input forniti nelle diverse sezioni del modello *Customize* nel modulo OVF sono convalidati. In caso di discrepanze, viene visualizzata una finestra di dialogo che richiede di intraprendere un'azione correttiva.
+
+. Per apportare le modifiche necessarie al prompt della finestra di dialogo, attenersi alla seguente procedura:
++
+.. Fare doppio clic sulla console Web per avviare l'interazione con la console.
+.. Utilizzare i tasti freccia SU e GIÙ sulla tastiera per spostarsi tra i campi visualizzati.
+.. Utilizzare i tasti freccia DESTRA e SINISTRA sulla tastiera per spostarsi all'estremità destra o sinistra del valore fornito al campo.
+.. Utilizzare TAB per spostarsi all'interno del pannello per immettere i valori, *OK* o *CANCEL*.
+.. Utilizzare INVIO per selezionare *OK* o *ANNULLA*.
+
+
+. Selezionando *OK* o *CANCEL*, i valori forniti verranno nuovamente convalidati. È possibile correggere i valori per 3 volte. Se non si riesce a correggere entro i 3 tentativi, l'installazione del prodotto si interrompe e si consiglia di provare a eseguire l'installazione su una nuova macchina virtuale.
+. Una volta completata l'installazione, la console Web visualizza il messaggio che indica che gli strumenti ONTAP per VMware vSphere sono in stato di integrità.
+

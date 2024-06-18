@@ -1,0 +1,27 @@
+---
+permalink: configure/add_vcenter.html 
+sidebar: sidebar 
+keywords:  
+summary: 'I vCenter sono le piattaforme di gestione centrali che consentono di controllare host, macchine virtuali (VM) e backend dello storage.' 
+---
+= Aggiungi vCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+I vCenter sono le piattaforme di gestione centrali che consentono di controllare host, macchine virtuali (VM) e backend dello storage.
+
+*A proposito di questa attività*
+
+Puoi aggiungere e gestire più vCenter con una sola istanza dei tool ONTAP per VMware vCenter 10,0.
+
+*Fasi*
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare vCenters dalla barra laterale
+. Selezionare *ADD* to onboard vCenter with vCenter IP Address/Hostname, username, password e port.
+
+
+Vedere link:../configure/task_configure_user_role_and_privileges.html["Elenco dei privilegi minimi richiesti per gli utenti cluster con ambito globale non amministratori"].

@@ -1,0 +1,23 @@
+---
+permalink: configure/verify_registered_svm.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Verificare che la SVM integrata sia elencata in VASA Provider dell"interfaccia utente di vCenter.' 
+---
+= Verificare la SVM registrata
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Verificare che la SVM integrata sia elencata in VASA Provider dell'interfaccia utente di vCenter.
+
+*Fasi*
+
+. Accedere a vCenter Server.
+. Accedere con le credenziali di amministratore.
+. Selezionare *fornitori di archiviazione*.
+. Selezionare *Configura*.
+. Nella sezione relativa ai back-end per provider di storage/storage, verificare che la SVM integrata sia elencata correttamente.
+

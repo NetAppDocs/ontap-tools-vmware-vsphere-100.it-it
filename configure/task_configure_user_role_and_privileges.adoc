@@ -1,0 +1,143 @@
+---
+permalink: configure/task_configure_user_role_and_privileges.html 
+sidebar: sidebar 
+keywords: user roles 
+summary: È possibile configurare nuovi ruoli utente per la gestione dei backend di storage utilizzando il file JSON fornito con gli strumenti ONTAP e Gestione sistema di ONTAP. 
+---
+= Configurare i ruoli e i privilegi degli utenti
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile configurare nuovi ruoli e privilegi utente per la gestione dei backend di storage utilizzando il file JSON fornito con gli strumenti ONTAP e Gestione sistema di ONTAP.
+
+*Cosa ti serve*
+
+* Il file dei privilegi di ONTAP dovrebbe essere stato scaricato da ONTAP Tools utilizzando `\https://<loadbalancerIP>:8443/virtualization/user-privileges/users_roles.zip`.
++
+
+NOTE: È possibile creare utenti a livello di cluster o storage diretto delle virtual machine (SVM). Puoi anche creare utenti senza utilizzare il file user_roles.json e, in tal caso, devi disporre di un set minimo di privilegi a livello di SVM.
+
+* È necessario aver effettuato l'accesso con i privilegi di amministratore per il backend di archiviazione.
+
+
+*Fasi*
+
+. Estrarre il scaricato `\https://<loadbalancerIP>:8443/virtualization/user-privileges/users_roles.zip` file.
+. Accedere a Gestore di sistema di ONTAP. Per accedere al gestore di sistema di ONTAP, utilizzare l'IP di gestione del cluster del cluster.
+. Effettua l'accesso come cluster o utente SVM.
+. Selezionare il riquadro *CLUSTER* > *Impostazioni* > *utenti e ruoli*.
+. Selezionare *Aggiungi* in utenti.
+. Nella finestra di dialogo *Aggiungi utente*, selezionare *prodotti di virtualizzazione*.
+. Selezionare *Sfoglia* per selezionare e caricare il file JSON con privilegi ONTAP.
++
+Il campo DEL PRODOTTO viene compilato automaticamente.
+
+. Selezionare la funzionalità desiderata dal menu a discesa PRODUCT CAPABILITY (FUNZIONALITÀ DEL PRODOTTO).
++
+Il campo *ROLE* viene compilato automaticamente in base alla funzionalità del prodotto selezionata.
+
+. Immettere il nome utente e la password richiesti.
+. Selezionare i privilegi (rilevamento, Crea archivio, Modifica archivio, archiviazione distrutta, ruolo NAS/SAN) richiesti per l'utente, quindi fare clic su *Aggiungi*.
+
+
+Il nuovo ruolo e l'utente vengono aggiunti e i privilegi dettagliati vengono visualizzati sotto il ruolo configurato.
+
+
+NOTE: L'operazione di disinstallazione non rimuove i ruoli dello strumento ONTAP ma rimuove i nomi localizzati per i privilegi specifici dello strumento ONTAP e aggiunge il prefisso `XXX missing privilege` a loro. Quando si reinstallano gli strumenti ONTAP o si esegue l'aggiornamento a una versione più recente degli strumenti ONTAP, vengono ripristinati tutti i ruoli standard degli strumenti ONTAP e i privilegi specifici degli strumenti ONTAP.
+
+
+
+== Requisiti di mappatura degli aggregati delle SVM
+
+Per utilizzare credenziali SVM dirette per il provisioning dei datastore, i tool ONTAP interni creano volumi nell'aggregato specificato nell'API POST dei datastore. ONTAP non consente la creazione di volumi su aggregati non mappati in una SVM utilizzando credenziali SVM dirette. Per risolvere questo problema, è necessario mappare le SVM con gli aggregati utilizzando l'API REST o la CLI come descritto qui.
+
+API REST:
+
+[listing]
+----
+PATCH "/api/svm/svms/f16f0935-5281-11e8-b94d-005056b46485" '{"aggregates":{"name":["aggr1","aggr2","aggr3"]}}'
+----
+CLI ONTAP:
+
+[listing]
+----
+sti115_vsim_ucs630f_aggr1 vserver show-aggregates                                        AvailableVserver        Aggregate      State         Size Type    SnapLock Type-------------- -------------- ------- ---------- ------- --------------svm_test       sti115_vsim_ucs630f_aggr1                               online     10.11GB vmdisk  non-snaplock
+----
+
+
+== Creare manualmente un utente e un ruolo ONTAP
+
+Seguire le istruzioni in questa sezione per creare manualmente l'utente e i ruoli senza utilizzare il file JSON.
+
+. Accedere a Gestore di sistema di ONTAP. Per accedere al gestore di sistema di ONTAP, utilizzare l'IP di gestione del cluster del cluster.
+. Effettua l'accesso come cluster o utente SVM.
+. Selezionare il riquadro *CLUSTER* > *Impostazioni* > *utenti e ruoli*.
+. Crea ruoli:
++
+.. Selezionare *Aggiungi* nella tabella *ruoli*.
+.. Immettere i dettagli *NOME RUOLO* e *attributi ruolo*.
++
+Aggiungere il PERCORSO *REST API* e il relativo accesso dal menu a discesa.
+
+.. Aggiungere tutte le API necessarie e salvare le modifiche.
+
+
+. Crea utenti:
++
+.. Selezionare *Aggiungi* nella tabella *utenti*.
+.. Nella finestra di dialogo *Aggiungi utente*, selezionare *System Manager*.
+.. Immettere il *NOME UTENTE*.
+.. Selezionare *RUOLO* dalle opzioni create nel passaggio *Crea ruoli* riportato sopra.
+.. Immettere le applicazioni a cui assegnare l'accesso e il metodo di autenticazione. ONTAPI e HTTP sono l'applicazione richiesta e il tipo di autenticazione è *Password*.
+.. Impostare *Password per l'utente* e *Salva* l'utente.
+
+
+
+
+
+
+== Elenco dei privilegi minimi richiesti per gli utenti cluster con ambito globale non amministratori
+
+In questa sezione sono elencati i privilegi minimi richiesti per gli utenti cluster con ambito globale non amministratore creati senza utilizzare il file JSON degli utenti.
+Se il cluster viene aggiunto nell'ambito locale, si consiglia di utilizzare il file JSON per creare gli utenti, poiché gli strumenti ONTAP richiedono più di semplici privilegi di lettura per il provisioning su ONTAP.
+
+Utilizzo delle API:
+
+|===
+
+
+| API | LIVELLO DI ACCESSO | UTILIZZATO PER 
+
+
+| /api/cluster | Sola lettura | Rilevamento della configurazione del cluster 
+
+
+| /api/cluster/licenze/licenze | Sola lettura | Controllo licenza per licenze specifiche del protocollo 
+
+
+| /api/cluster/nodi | Sola lettura | Rilevamento del tipo di piattaforma 
+
+
+| /api/storage/aggregati | Sola lettura | Controllo dello spazio di aggregazione durante datastore/provisioning dei volumi 
+
+
+| /api/storage/cluster | Sola lettura | Per ottenere i dati di spazio ed efficienza a livello di cluster 
+
+
+| /api/storage/dischi | Sola lettura | Per ottenere i dischi associati in un aggregato 
+
+
+| /api/storage/qos/policy | Lettura/creazione/Modifica | Gestione di QoS e policy VM 
+
+
+| /api/svm/svm | Sola lettura | Per ottenere la configurazione SVM nel caso in cui il cluster venga aggiunto localmente. 
+
+
+| /api/network/ip/interfaces | Sola lettura | Aggiunta del backend dello storage - per identificare l'ambito della LIF di gestione è Cluster/SVM 
+
+
+| /api | Sola lettura | L'utente del cluster deve disporre di questo privilegio per ottenere lo stato corretto di backend dello storage. In caso contrario, l'interfaccia utente di ONTAP Tools Manager visualizza lo stato di backend dello storage "sconosciuto". 
+|===

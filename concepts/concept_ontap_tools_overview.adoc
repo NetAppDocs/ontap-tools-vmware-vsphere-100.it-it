@@ -1,0 +1,31 @@
+---
+permalink: concepts/concept_ontap_tools_overview.html 
+sidebar: sidebar 
+keywords:  
+summary: I tool ONTAP per VMware vSphere gestiscono il provisioning di datastore e macchine virtuali negli ambienti VMware che utilizzano backend storage NetApp. 
+---
+= Panoramica sui tool ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+I tool ONTAP per VMware vSphere gestiscono il provisioning di datastore e macchine virtuali negli ambienti VMware che utilizzano backend storage NetApp. Consente agli amministratori di gestire direttamente lo storage all'interno di vCenter Server, semplificando quindi la gestione dello storage e dei dati per gli ambienti VMware.
+
+Gli strumenti ONTAP per VMware vSphere 10,0 sono una raccolta di strumenti scalabili orizzontalmente, basati sugli eventi,
+Microservizi implementati come Open Virtual Appliance (OVA). È disponibile in vari fattori di forma dell'implementazione, come Open Virtual Appliance (OVA) e Software as a Service (SaaS) per ambienti on-premise.
+
+I tool ONTAP per VMware vSphere sono composti da:
+
+* Funzionalità delle macchine virtuali
+* Provider VASA per VM granulare
+* Gestione basata su criteri dello storage
+
+
+
+
+== ONTAP tools provider VASA
+
+Strumenti ONTAP il provider VASA supporta requisiti di elevata scalabilità per i volumi virtuali (vVol). Supporta il protocollo NFS, il protocollo iSCSI e l'implementazione OVA.
+VASA Provider per VMware è un prodotto che offre il Lifecycle management in un'implementazione VMware con ONTAP.

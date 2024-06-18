@@ -1,0 +1,76 @@
+---
+permalink: deploy/deployment_checklist.html 
+sidebar: sidebar 
+keywords:  
+summary: 'L"elenco di controllo qui riportato consente di avere tutte le informazioni a portata di mano prima di iniziare la distribuzione.' 
+---
+= Lista di controllo per l'implementazione
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+L'elenco di controllo qui riportato consente di avere tutte le informazioni a portata di mano prima di iniziare la distribuzione. Prima di eseguire la distribuzione, annotare questi valori per l'installazione.
+
+Prima di iniziare l'implementazione dei tool ONTAP per VMware vSphere, devi conoscere i requisiti di base del backend dello storage, le esigenze applicative e le licenze.
+Prima di implementare gli strumenti ONTAP per VMware vSphere, è consigliabile pianificare l'implementazione e decidere come configurare gli strumenti ONTAP nel proprio ambiente.
+
+*Primo nodo e altri campi comuni*
+
+* Nome utente provider VASA (*)
+* Nome utente amministratore (*)
+* Server NTP (forniti a vCenter per la sincronizzazione dell'ora)
+
+
+*Dettagli certificato*
+
+* Attiva certificato CA personalizzato
+* Certificati root e intermedi (ignorati quando è attivata la firma automatica)
+* Certificato Leaf e chiave privata (ignorati quando è attivata la firma automatica)
+* Nome dominio(*) (ignorato quando è attivata la firma automatica)
+
+
+*Dettagli del bilanciamento del carico e del server API*
+
+* IP bilanciamento carico(*)
+* IP virtuale per il piano di controllo K8s (*)
+
+
+*Dettagli ONTAP*
+
+* Gestione ONTAP LIF (*) (IP gestione cluster)
+* LIF dati ONTAP (*)
+* VM di storage (*)
+* Nome utente cluster ONTAP(*)
+* Abilita la migrazione
+* Macchina virtuale primaria
+* Nome libreria di contenuti (*)
+* Nome modello OVF(*)
+* Nome host(*)
+* Nome utente(*)
+
+
+*Dettagli rete primo nodo*
+
+* Nome host(*)
+* Indirizzo_IP(*)
+* Lunghezza prefisso (solo per IPv6)
+* Netmask (solo per IPv4)(*)
+* Gateway(*)
+* DNS primario(*)
+* DNS secondario(*)
+* Cerca domini(*)
+
+
+*Secondo nodo - Dettagli rete nodo*
+
+* Nome host(*)
+* Indirizzo_IP(*)
+
+
+*Third Node - Node Network details*
+
+* Nome host(*)
+* Indirizzo_IP(*)
+

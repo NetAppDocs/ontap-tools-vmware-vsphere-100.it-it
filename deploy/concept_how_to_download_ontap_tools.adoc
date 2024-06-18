@@ -1,0 +1,32 @@
+---
+permalink: deploy/concept_how_to_download_ontap_tools.html 
+sidebar: sidebar 
+keywords:  
+summary: È possibile scaricare il file .ova per i tool ONTAP per VMware vSphere dal sito del supporto NetApp. 
+---
+= Come scaricare gli strumenti ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile scaricare `.zip` File contenente file binari (_.ova_) e certificati firmati per gli strumenti ONTAP per VMware vSphere di https://mysupport.netapp.com/site/products/all/details/otv/downloads-tab["Sito di supporto NetApp"^].
+
+Il file _.ova_ include gli strumenti ONTAP. Una volta completata l'implementazione, nel tuo ambiente vengono installati gli strumenti ONTAP e i prodotti VASA. Per impostazione predefinita, gli strumenti ONTAP iniziano a funzionare non appena si decide in merito al modello di implementazione successivo e si sceglie se abilitare il provider VASA in base ai propri requisiti.
+
+
+
+== Archivio di contenuti
+
+La libreria di contenuti in VMware è un oggetto container che archivia modelli di VM, modelli vApp e altri tipi di file. La distribuzione con la libreria di contenuti offre un'esperienza senza problemi poiché non dipende dalla connettività di rete.
+È necessario creare una libreria di contenuti per memorizzare l'OVA prima di distribuirli nella configurazione ha. Non selezionare alcun criterio di protezione né impostare alcuna password per la libreria di contenuti.
+Creare la libreria di contenuti utilizzando i seguenti passaggi:
+
+*Fasi*
+
+. Accedere al client vSphere.
+. Selezionare i puntini di sospensione orizzontali accanto al client vSphere e selezionare *Libreria di contenuti*.
+. Selezionare il pulsante *Crea* sul lato destro della pagina.
+. Fornire un nome per la libreria e creare la libreria di contenuti.
+

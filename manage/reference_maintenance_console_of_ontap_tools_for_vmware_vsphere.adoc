@@ -1,0 +1,75 @@
+---
+permalink: manage/reference_maintenance_console_of_ontap_tools_for_vmware_vsphere.html 
+sidebar: sidebar 
+keywords:  
+summary: È possibile gestire le configurazioni di applicazione, sistema e rete utilizzando la console di manutenzione degli strumenti di ONTAP. È possibile modificare la password di amministratore e la password di manutenzione. È inoltre possibile generare pacchetti di supporto, impostare diversi livelli di log, visualizzare e gestire le configurazioni TLS e avviare la diagnostica remota. 
+---
+= Panoramica della console di manutenzione degli strumenti ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile gestire le configurazioni di applicazione, sistema e rete utilizzando la console di manutenzione degli strumenti di ONTAP. È possibile modificare la password di amministratore e la password di manutenzione. È inoltre possibile generare pacchetti di supporto, impostare diversi livelli di log, visualizzare e gestire le configurazioni TLS e avviare la diagnostica remota.
+
+Per accedere alla console di manutenzione, è necessario aver installato gli strumenti VMware dopo aver implementato gli strumenti ONTAP. Si consiglia di utilizzare `maint` Come nome utente e password configurati durante l'implementazione per accedere alla console di manutenzione degli strumenti ONTAP. Utilizzare *nano* per modificare i file nella console di login principale o root.
+
+
+NOTE: È necessario impostare una password per `diag` utente durante l'attivazione della diagnostica remota.
+
+Per accedere alla console di manutenzione, utilizzare la scheda *Riepilogo* degli strumenti ONTAP implementati. Quando si fa clic su  image:../media/launch_maintenance_console.gif["Pulsante Play (Riproduci)"], viene avviata la console di manutenzione.
+
+|===
+
+
+| *Menu console* | *Opzioni* 
+
+
+ a| 
+Configurazione dell'applicazione
+ a| 
+. Visualizza il riepilogo dello stato del server
+. Modificare il livello di REGISTRO per i servizi provider VASA
+
+
+
+
+ a| 
+Configurazione del sistema
+ a| 
+. Riavviare la macchina virtuale
+. Arrestare la macchina virtuale
+. Modificare la password utente "maint"
+. Modificare il fuso orario
+. Aggiungere un nuovo server NTP
+. Aumentare la dimensione del disco jail (/jail)
+. Eseguire l'upgrade
+. Installare VMware Tools
+
+
+
+
+ a| 
+Configurazione di rete
+ a| 
+. Visualizzare le impostazioni dell'indirizzo IP
+. Visualizzare le impostazioni di ricerca dei nomi di dominio
+. Modificare le impostazioni di ricerca dei nomi di dominio
+. Visualizza percorsi statici
+. Modificare i percorsi statici
+. Eseguire il commit delle modifiche
+. Eseguire il ping di un host
+. Ripristinare le impostazioni predefinite
+
+
+
+
+ a| 
+Supporto e diagnostica
+ a| 
+. Accedere alla shell di diagnostica
+. Abilitare l'accesso remoto alla diagnostica
+
+
+|===

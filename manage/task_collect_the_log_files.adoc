@@ -1,0 +1,28 @@
+---
+permalink: manage/task_collect_the_log_files.html 
+sidebar: sidebar 
+keywords:  
+summary: 'È possibile raccogliere i file di registro per gli strumenti ONTAP per VMware vSphere dall"opzione disponibile nell"interfaccia utente grafica \(GUI\) degli strumenti ONTAP. Il supporto tecnico potrebbe richiedere di raccogliere i file di registro per risolvere un problema.' 
+---
+= Raccogliere i file di log
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile raccogliere i file di log per gli strumenti ONTAP per VMware vSphere dall'opzione disponibile nell'interfaccia utente del gestore strumenti ONTAP. Il supporto tecnico potrebbe richiedere di raccogliere i file di registro per risolvere un problema.
+
+*Fasi*
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare *Log Bundle* dalla barra laterale.
++
+Questa operazione può richiedere alcuni minuti.
+
+. Selezionare *GENERATE* per generare i file di registro.
+. Immettere l'etichetta per il pacchetto di log e selezionare *GENERA*.
++
+Scaricare il file tar.gz e inviarlo all'assistenza tecnica.
+
+

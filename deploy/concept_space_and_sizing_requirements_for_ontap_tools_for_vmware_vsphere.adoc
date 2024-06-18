@@ -1,0 +1,112 @@
+---
+permalink: deploy/concept_space_and_sizing_requirements_for_ontap_tools_for_vmware_vsphere.html 
+sidebar: sidebar 
+keywords: ONTAP tools,Storage Replication Adapter 
+summary: Prima di implementare gli strumenti ONTAP per VMware vSphere, è necessario conoscere i requisiti di spazio per il pacchetto di implementazione e alcuni requisiti di base del sistema host. 
+---
+= Requisiti per l'implementazione degli strumenti ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Prima di implementare gli strumenti ONTAP per VMware vSphere, è necessario conoscere i requisiti di spazio per il pacchetto di implementazione e alcuni requisiti di base del sistema host.
+
+È possibile utilizzare gli strumenti ONTAP con un server Windows vCenter o con un'appliance virtuale VMware vCenter Server (vCSA). È necessario implementare i tool ONTAP su un vSphere supportato che include il sistema ESXi.
+
+* *Requisiti di spazio per il pacchetto di installazione per nodo*
++
+** 10 GB per le installazioni con thin provisioning
+** 200 GB per installazioni con thick provisioning
+
+
+* *Requisiti di dimensionamento del sistema host per nodo*
+La memoria consigliata, in base alle dimensioni dell'implementazione e per nodo, è illustrata nella tabella seguente:
+
+
+|===
+
+
+| Tipo di implementazione | CPU | Memoria (GB) 
+
+
+| Piccolo (S) | 8 | 16 
+
+
+| Medio (M) | 12 | 24 
+
+
+| Grande (L) | 16 | 32 
+|===
+
+
+== Requisiti minimi di storage e applicazioni:
+
+|===
+| Storage, host e applicazioni | Requisiti di versione 
+
+
+| ONTAP | ONTAP 9.10.1 , 9,11 , 9,12 e 9,13 
+
+
+| VMware vSphere | La versione minima supportata di VMware è la 7,0.3. 
+
+
+| Host ESXi | ESXi 7.0.3 o versione successiva 
+
+
+| Server vCenter | VCenter 7.0.3 
+
+
+| Provider VASA | 3,0 
+
+
+| Applicazione OVA | 10,0 
+|===
+L'Interoperability Matrix Tool (IMT) contiene le informazioni più recenti sulle versioni supportate di ONTAP, vCenter Server, gli host ESXi e le applicazioni plug-in.
+
+https://imt.netapp.com/matrix/imt.jsp?components=105475;&solution=1777&isHWU&src=IMT["Tool di matrice di interoperabilità"^]
+
+
+
+== Ulteriori considerazioni sull'implementazione
+
+È necessario considerare pochi requisiti durante la personalizzazione degli strumenti ONTAP di implementazione.
+
+
+
+=== Password dell'utente dell'applicazione
+
+Questa è la password assegnata all'account amministratore. Per motivi di sicurezza, si consiglia di utilizzare una lunghezza della password compresa tra otto e trenta caratteri e di inserire almeno un carattere superiore, uno inferiore, uno speciale e un carattere speciale. La password scade dopo 90 giorni.
+
+
+
+=== Credenziali della console di manutenzione dell'appliance
+
+È necessario accedere alla console di manutenzione utilizzando il nome utente "`maint`". È possibile impostare la password per l'utente "`maint`" durante l'implementazione. È possibile utilizzare il menu Configurazione applicazione della console di manutenzione degli strumenti ONTAP per modificare la password.
+
+
+
+=== Indirizzo IP del server vCenter
+
+* È necessario fornire l'indirizzo IP (IPv4) dell'istanza di vCenter Server a cui si desidera registrare gli strumenti ONTAP.
++
+Il tipo di strumenti ONTAP e di certificati VASA generati dipende dall'indirizzo IP (IPv4) fornito durante la distribuzione.
+
+* L'indirizzo IP degli strumenti ONTAP utilizzato per la registrazione con vCenter Server dipende dal tipo di indirizzo IP di vCenter Server (IPv4) inserito nella procedura di distribuzione guidata.
++
+Sia gli strumenti ONTAP che i certificati VASA verranno generati utilizzando lo stesso tipo di indirizzo IP utilizzato durante la registrazione di vCenter Server.
+
+* Assicurarsi che le VM non vengano migrate durante l'installazione.
++
+
+NOTE: IPv6 non è supportato nei tool ONTAP per VMware vSphere 10,0.
+
+
+
+
+
+=== Proprietà di rete dell'appliance
+
+Specificare un nome host DNS valido (non qualificato), l'indirizzo IP statico per gli strumenti ONTAP e gli altri parametri di rete. DHCP non è supportato negli strumenti ONTAP per VMware vSphere 10,0. Tutti questi parametri sono necessari per un'installazione e un funzionamento corretti.

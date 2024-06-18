@@ -1,0 +1,53 @@
+---
+permalink: manage/storage_backend.html 
+sidebar: sidebar 
+keywords:  
+summary: I backend di storage sono sistemi utilizzati dagli host EXSi per lo storage dei dati. 
+---
+= Gestione del backend dello storage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+I backend di storage sono sistemi utilizzati dagli host EXSi per lo storage dei dati.
+
+
+
+== Aggiunta del backend dello storage
+
+Per aggiungere backend di archiviazione, procedere come segue.
+
+*Fasi*
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare *backend di archiviazione* dalla barra laterale.
+. Selezionare *Aggiungi*.
+
+
+
+
+== Modifica del backend dello storage
+
+Per modificare il backend dello storage esistente, attenersi alla procedura riportata di seguito.
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Seleziona i backend di storage dalla barra laterale.
+. Selezionare il *Storage backend* che si desidera modificare
+. Fare clic sul menu puntini di sospensione verticali e selezionare *Modifica*.
+. Immettere *Username* e *Password* per modificare il backend di archiviazione.
+
+
+
+
+== Rimozione del backend dello storage
+
+Prima di rimuovere il backend dello storage, occorre eliminare tutti gli archivi dati collegati al back-end dello storage.
+Per rimuovere il backend dello storage, procedere come segue.
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare *backend di archiviazione* dalla barra laterale.
+. Selezionare il backend di archiviazione che si desidera rimuovere
+. Fare clic sul menu puntini di sospensione verticali e selezionare *Rimuovi*.
+

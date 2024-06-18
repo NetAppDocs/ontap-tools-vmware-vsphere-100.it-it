@@ -1,0 +1,33 @@
+---
+permalink: configure/ontap_tools_manager_ui.html 
+sidebar: sidebar 
+keywords: ontap tools manager, managerui 
+summary: 'ONTAP tools manager offre più controllo e potenza all"amministratore degli strumenti ONTAP, consentendo la gestione complessiva degli appliance, dei tenant e dei backend storage.' 
+---
+= Interfaccia utente di ONTAP tools manager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+I tool ONTAP per VMware vSphere 10,0 sono un sistema multi-tenant che gestisce diversi vCenter. Un amministratore ha bisogno di un maggiore controllo sui vCenter gestiti e sui backend di storage che vengono inseriti.
+
+ONTAP tools manager offre più controllo e potenza all'amministratore degli strumenti ONTAP, consentendo la gestione complessiva degli appliance, dei tenant e dei backend storage.
+
+Gli strumenti ONTAP eseguono:
+
+* Gestione vCenter - registrazione e annullamento della registrazione dei vCenter agli strumenti ONTAP
+* Gestione backend dello storage - Registra e annulla la registrazione dei cluster di storage ONTAP sugli strumenti ONTAP, mappandoli ai vCenter integrati a livello globale.
++
+Il backend dello storage è globale quando aggiunto dalle API ONTAP Tools Manager o commons e quando aggiunto dalle API vCenter è locale.
+Esempio: Per il setup multi-tenant, puoi aggiungere il back-end dello storage (cluster) a livello globale e le SVM a livello locale per utilizzare le credenziali dirette della SVM.
+
+* Download dei bundle di log
+
+
+Per accedere all'interfaccia utente degli strumenti ONTAP, avviare `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser e accedere con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+
+image::../media/ontap_tools_manager.png[Interfaccia utente di ONTAP Tools Manager]
+
+È possibile selezionare l'opzione *non mostrare più* per non visualizzare questa finestra popup quando si effettua nuovamente l'accesso dallo stesso browser.

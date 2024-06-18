@@ -1,0 +1,37 @@
+---
+permalink: configure/ip_whitelisting.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Questa funzione consente di specificare un indirizzo host ESXi specifico per l"operazione di montaggio del datastore.' 
+---
+= Gestire l'accesso alla rete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Questa funzione consente di specificare un indirizzo host ESXi specifico per l'operazione di montaggio del datastore.
+
+Quando si dispone di più indirizzi IP per gli host ESXi, tutti gli indirizzi IP rilevati dall'host vengono aggiunti a un criterio di esportazione. Se non si desidera aggiungere tutti gli indirizzi IP ai criteri di esportazione, specificare un'impostazione per gli indirizzi IP inseriti nella whitelist in un elenco o intervallo separati da virgole o CIDR o una combinazione di tutti e tre per ogni vCenter.
+
+Se l'impostazione non viene fornita, il criterio di esportazione aggiunge tutti gli indirizzi IP rilevati nel passaggio di pre-montaggio. Se viene fornita l'impostazione, gli strumenti ONTAP aggiungono solo quelli che rientrano nell'intervallo o negli indirizzi IP inseriti nella whitelist. Se nessuno degli IP di un host appartiene agli IP inseriti nella whitelist, il montaggio su quell'host non riesce.
+
+Per impostazione predefinita, tutti gli IP host vengono aggiunti al criterio di esportazione.
+
+Utilizzare la seguente API per aggiungere indirizzi IP per la whitelist:
+
+[listing]
+----
+patch /api/v1/vcenters/{vcguid}/settings/ip-whitelist
+
+{
+    value: string
+}
+
+GET /api/v1/vcenters/{vcguid}/settings/ip-whitelist
+
+{
+    value: string
+}
+----

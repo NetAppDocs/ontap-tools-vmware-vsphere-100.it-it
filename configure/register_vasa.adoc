@@ -1,0 +1,39 @@
+---
+permalink: configure/register_vasa.html 
+sidebar: sidebar 
+keywords:  
+summary: Puoi registrare VASA fornisce a vCenter utilizzando un certificato autofirmato o un certificato CA firmato. Il certificato autofirmato viene generato utilizzando VMware CA Handshake. 
+---
+= Registra il provider VASA su vCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puoi registrare VASA fornisce a vCenter utilizzando un certificato autofirmato o un certificato CA firmato. Il certificato autofirmato viene generato utilizzando VMware CA Handshake.
+
+*A proposito di questa attività*
+
+Quando si utilizza il metodo di certificato firmato CA, è necessario che il certificato firmato CA venga inserito in vCenter.
+
+*Fasi*
+
+. Accedere al server vCenter.
+. Selezionare *Configure* > *Storage Providers*.
+. Fare clic sull'icona *Aggiungi*.
+. Immettere le informazioni di connessione per il provider di archiviazione:
++
+.. Nome: Qualsiasi nome facile da usare come "ScaleoutVP"
+.. URL: `\https://<name>/virtualization/version.xml` - Il nome nell'URL corrisponde all'IP virtuale fornito durante l'implementazione OVA per l'implementazione di Single vCenter (o) nome di dominio per le implementazioni Multi-vCenter. Aggiungere i certificati all'URL. Gli stessi certificati vengono pubblicati in vCenter.
+.. Credenziali: <nome_ute<nome_VASA Provider>/< password provider VASA> fornite durante l'implementazione OVA.
+
+
+. Dopo aver registrato VASA, fare clic su *OK*.
+Assicurarsi che sia elencato sotto Storage Provider e che lo stato sia Online.
++
+Se in vCenter è stato inserito il certificato CA firmato, la registrazione VASA continua con il certificato CA firmato. In caso contrario, la procedura di handshake non riesce e la registrazione viene impostata per impostazione predefinita sul certificato SSA.
+
+. È possibile registrare più vCenter in una singola istanza vp scale-out.
+Ripetere i passaggi sopra descritti per registrare più vCenter.
+

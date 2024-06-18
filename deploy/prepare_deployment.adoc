@@ -1,0 +1,69 @@
+---
+permalink: deploy/prepare_deployment.html 
+sidebar: sidebar 
+keywords:  
+summary: 'È necessario implementare gli strumenti ONTAP nel proprio ambiente e specificare i parametri richiesti per poter utilizzare l"appliance.' 
+---
+= Preparazione alla distribuzione degli strumenti ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+I tool ONTAP per VMware vSphere supportano multi vCenter Server, che include il provider VASA.
+
+Prima di iniziare l'implementazione dei tool ONTAP per VMware vSphere, devi conoscere i requisiti di base del backend dello storage, le esigenze applicative e le licenze.
+Prima di implementare gli strumenti ONTAP per VMware vSphere, è consigliabile pianificare l'implementazione e decidere come configurare gli strumenti ONTAP nel proprio ambiente.
+
+
+
+== Preparazione per l'implementazione
+
+Di seguito sono riportati i requisiti degli strumenti ONTAP prima di procedere con la distribuzione:
+
+* Configurare e configurare l'ambiente vCenter Server.
+* Scaricare il file _.ova_.
+* Assicurarsi che l'host o il pool di risorse in cui viene distribuito l'OVA disponga delle risorse minime menzionate nella sezione *requisiti per la distribuzione degli strumenti ONTAP*.
+* Eliminare la cache del browser.
+* Sono necessari due IP virtuali per il bilanciamento del carico e Kubernetes API Server. Ottenere due IP gratuiti nella VLAN, utilizzati per la distribuzione, che viene utilizzato per accedere ai servizi dopo la distribuzione.
+* Procurarsi certificati CA (certificati root , Leaf e intermedi) dalla CA commerciale.
+* In caso di distribuzione multi-vCenter in cui i certificati CA personalizzati sono obbligatori, mappare il *Domain Name* su cui viene rilasciato il certificato al *Virtual IP*. Eseguire un controllo ping sul nome di dominio per verificare se il dominio viene risolto all'indirizzo IP desiderato.
+* È richiesta una macchina virtuale di storage su ONTAP con NFS abilitato. Per configurare la VM di storage, procedere come segue:
++
+** Tenere aperto il System Manager di ONTAP e la CLI di ONTAP.
+** Se preferisci creare una nuova macchina virtuale per lo storage, accedi a ONTAP System Manager e crea una Storage VM con NFS abilitato.
+** Aggiungere un aggregato con almeno 100GB TB.
+** Per verificare se l'aggregato è stato aggiunto correttamente:
++
+A) accedere all'interfaccia CLI ONTAP
+
++
+b) eseguire il comando, vserver show -fields aggr-list
+
++
+c) se l'aggregato non è stato elencato rispetto alla tua macchina virtuale di storage predefinita, esegui il comando: vserver modify <storage VM name> -aggr-list <aggregate name>
+
++
+Per trovare il nome dell'aggregato che si desidera aggiungere alla propria macchina virtuale di storage predefinita, è possibile utilizzare il seguente comando nell'interfaccia CLI di ONTAP: _Aggr show_
+
++
+Questo comando visualizza un elenco di aggregati nel sistema storage ed è possibile trovare il nome dell'aggregato da utilizzare nella colonna *aggregate*.
+
+** Sono disponibili due opzioni per la configurazione dell'implementazione, una per le credenziali del cluster e l'altra per le credenziali SVM o per la SVM diretta. Per le SVM dirette, è necessario configurare la LIF di gestione per la SVM prima di iniziare l'implementazione. Ignora questo per le credenziali del cluster.
+** Assicurati che la route di rete esista, accedi all'interfaccia a riga di comando di ONTAP ed esegui il comando, network route show -vserver <storage VM name>
++
+In caso contrario, accedere alla CLI di ONTAP ed eseguire i seguenti comandi, net route create -vserver <vserver name> -destination <destination IP> -gateway <gateway IP> -metric 20
+
+** Verificare che esista una policy di esportazione per la VM di storage. In Gestione sistema di ONTAP, andare a *archiviazione* > *VM di archiviazione* > *[nome VM di archiviazione]* > *Impostazioni* > *Criteri di esportazione*. Se non è presente alcun criterio di esportazione, procedere come segue.
+** Creare una regola dei criteri di esportazione utilizzando i seguenti comandi dell'interfaccia CLI di ONTAP
++
+Regola del criterio di esportazione vserver create -vserver <storage VM name> -policyname <export policy name> -clientmatch <ESXI-IP> -rrule any -rwrule any -superuser any
+
++
+
+NOTE: Assicurarsi che il valore _superuser_ non sia _none_.
+
+
+
+

@@ -1,0 +1,118 @@
+---
+permalink: manage/manage_vcenter.html 
+sidebar: sidebar 
+keywords:  
+summary: I vCenter sono piattaforme di gestione centrali che consentono di controllare host, macchine virtuali e backend di storage. 
+---
+= Gestione di vCenter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+I vCenter sono piattaforme di gestione centrali che consentono di controllare host, macchine virtuali e backend di storage.
+
+
+
+== Aggiungi vCenter
+
+Puoi aggiungere e gestire più vCenter con una sola istanza dei tool ONTAP per VMware vCenter 10,0.
+
+*Fasi*
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare vCenters dalla barra laterale
+. Selezionare *ADD* to onboard vCenter with vCenter IP Address/Hostname, username, password e port.
+. Accedere alla pagina *Storage backend* e selezionare *Aggiungi al backend dello storage integrato* (cluster ONTAP) con nome host, nome utente, password e porta.
+
+
+Vedere link:../configure/task_configure_user_role_and_privileges.html["Elenco dei privilegi minimi richiesti per gli utenti cluster con ambito globale non amministratori"].
+
+
+
+== Associazione o dissociazione del backend dello storage con vCenter
+
+La pagina di elenco di vCenter mostra il numero associato di backend storage. Ogni vCenter ha la possibilità di associare o disassociare un backend dello storage
+Questo task ti aiuta a creare la mappatura tra backend dello storage e vCenter integrato a livello globale.
+
+*Fasi*
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare vCenters dalla barra laterale.
+. Fare clic sui puntini di sospensione verticali sul vCenter che si desidera associare o dissociare dai backend di storage.
+. Selezionare *Associa o dissocia backend archiviazione* a seconda dell'azione che si desidera eseguire.
++
+Vedere link:../configure/task_configure_user_role_and_privileges.html["Elenco dei privilegi minimi richiesti per gli utenti cluster con ambito globale non amministratori"].
+
+
+
+
+
+== Modificare vCenter
+
+Per modificare i vCenter, procedere come segue.
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare vCenters dalla barra laterale
+. Fare clic sui puntini di sospensione verticali nel vCenter che si desidera modificare e selezionare *Modifica*.
+. Modificare i dettagli di vCenter e selezionare *Modifica*.
+
+
+
+
+== Rimuovere vCenter
+
+Prima di rimuoverlo, devi rimuovere tutti i backend dello storage collegati a vCenter.
+
+. Lancio `\https://loadBalanceIP:8443/virtualization/ui/` Dal browser con le credenziali di amministratore degli strumenti ONTAP fornite durante la distribuzione.
+. Selezionare vCenters dalla barra laterale
+. Fare clic sui puntini di sospensione verticali sul vCenter che si desidera rimuovere e selezionare *Rimuovi*.
++
+
+NOTE: Una volta rimosso, vCenter non verrà più gestito dall'applicazione.
+
+
+
+
+
+== Gestire la soglia di archiviazione
+
+Utilizzare l'API Get Threshold riportata di seguito per recuperare i limiti di soglia dello storage configurati per volume e aggregato.
+
+[listing]
+----
+GET​/virtualization​/api​/v1​/vcenters​/{vcguid}​/storage-thresholds
+----
+Esempi:
+Scopri le soglie di storage per vcenter di vcenter guid
+
+[listing]
+----
+GET "/api/v1/vcenters/beded9ad-6bbb-4c9e-b4c6-691250bfe2da/storage-thresholds"
+----
+Utilizzare il seguente allarme di configurazione PATCH per volume e aggregazione per generare notifica quando vengono raggiunti i limiti di soglia configurati.
+
+[listing]
+----
+PATCH​/virtualization​/api​/v1​/vcenters​/{vcguid}​/storage-thresholds
+----
+Esempi:
+Update delle soglie di storage per vcenter di vcenter guid. I limiti predefiniti sono 80% per quasi pieno e 90% per pieno.
+Modifica di tutte le impostazioni di soglia
+
+[listing]
+----
+{{{}PATCH "/api/v1/vcenters/beded9ad-6bbb-4c9e-b4c6-691250bfe2da/storage-thresholds"
+Request Body
+{
+"volume":
+
+{ "nearly_full_percent": 80, "full_percent": 90 }
+,
+"aggregate": {
+"nearly_full_percent": 80,
+"full_percent": 90
+}
+}{}}}{}
+----
