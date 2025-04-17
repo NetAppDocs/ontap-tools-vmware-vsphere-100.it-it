@@ -818,7 +818,6 @@ Modifica di tutte le impostazioni di soglia</block>
   <block id="6b50b8836085008a8950ddeafeb7453a" category="list-text">Aggiornare il certificato su tutti gli host.</block>
   <block id="8d1fe487abd8a4fd3b25772f93b38695" category="list-text">Attendere qualche istante prima di eseguire operazioni di DataStore (DS) e Virtual Machine (VM). Il tempo di attesa dipende dal numero di host, DS e VM presenti nell'installazione. Quando non si attende, le operazioni potrebbero non riuscire in modo intermittente.</block>
   <block id="8f7be3c874feb6ef0fd5f20afd8d5fbb" category="sidebar">Gli strumenti ONTAP per VMware vSphere consentono di configurare, gestire e proteggere i datastore virtuali nell'ambiente vCenter Server.</block>
-  <block id="46c4d9bfa1c229940459326940489ab0" category="sidebar">Strumenti ONTAP per la documentazione VMware vSphere</block>
   <block id="be11c74c1dd7f307bb80183a90dc2067" category="sidebar">Inizia subito</block>
   <block id="da951ef1610be90b45b31baf7b25b179" category="sidebar">Scopri i tool ONTAP per VMware vSphere</block>
   <block id="3d7fe3e43f9f24fffe5ed0d546d12f13" category="sidebar">Implementare gli strumenti ONTAP</block>
@@ -840,4 +839,5 @@ Modifica di tutte le impostazioni di soglia</block>
   <block id="4226794a7bb33ab0a2309e30c07c9031" category="sidebar">Gestire gli strumenti ONTAP</block>
   <block id="956040396bc93fbe70e3c9e235f5bfdb" category="sidebar">Accedere alla console di manutenzione degli strumenti ONTAP</block>
   <block id="1fa54bab7f1f7a04eb85d45383a68d04" category="sidebar">Eseguire la migrazione alla versione più recente dei tool ONTAP</block>
+  <block id="70805c0934ed6aecfa95bd2f05ac18f9" category="sidebar">Tool ONTAP per la documentazione di VMware vSphere 10,0</block>
 </blocks>
